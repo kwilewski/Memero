@@ -3,7 +3,7 @@ import robotXY
 import map_manager
 import time
 import tkinter as tk
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy
 
 HEIGHT = 700
@@ -12,6 +12,8 @@ map_width = 2000
 map_height = 2000
 mMemero = robotXY.robot_xy(map_height/2, map_width/2, 0)
 mMap = map_manager.my_map(map_width,map_height)
+
+
 
 try:
         ser = serial.Serial('COM5',9600, timeout = 1)
@@ -33,6 +35,7 @@ def w_prawo():
 
 def do_przodu():
     ser.write(b'w')
+    mMemero.x_change(-45)
     get_data_memero()
 
 def do_tylu():
@@ -49,18 +52,12 @@ def get_data_memero():
             str_ard = str_ard.rstrip('\n')
             dane = str_ard.split('|')
             dane2 = mMemero.position().split('|')
-            mMap.dane_na_mape(dane, dane2)
+            if len(dane) == 4:
+                mMap.dane_na_mape(dane, dane2)
             print(dane)
         #print(str_ard)
 
-    mp = numpy.zeros(map_width)
-    mm = mMap.get_map()
-    print(max(mm))
-    for n in range (0, 1999):
-        for m in range (0, 1999):
-            mp[n, m] = mm[n][m]
-    plt.matshow(mp)
-    plt.show()
+    mMap.rysuj_mape()
 
 
 
