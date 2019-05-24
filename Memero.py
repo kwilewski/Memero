@@ -4,6 +4,7 @@ import map_manager
 import time
 import tkinter as tk
 import matplotlib as plt
+import numpy
 
 HEIGHT = 700
 WIDTH = 700
@@ -48,11 +49,17 @@ def get_data_memero():
             str_ard = str_ard.rstrip('\n')
             dane = str_ard.split('|')
             dane2 = mMemero.position().split('|')
-            print(dane2)
             mMap.dane_na_mape(dane, dane2)
             print(dane)
         #print(str_ard)
-    plt.matshow(mMap.get_map())
+
+    mp = numpy.zeros(map_width)
+    mm = mMap.get_map()
+    print(max(mm))
+    for n in range (0, 1999):
+        for m in range (0, 1999):
+            mp[n, m] = mm[n][m]
+    plt.matshow(mp)
     plt.show()
 
 

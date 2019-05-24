@@ -27,27 +27,29 @@ class my_map(object):
         n2 = float(dane[2])
         n3 = float(dane[3])
         na = float(dane[0])
-        dot1_x = round(rx+math.cos(math.radians(ra+na-90))*n1+math.sin(math.radians(ra+na-90))*n1)
-        dot1_y = round(ry+math.sin(math.radians(ra+na-90))*n1+math.cos(math.radians(ra+na-90))*n1)
-        dot2_x = round(rx+math.cos(math.radians(ra+na))*n2+math.sin(math.radians(ra+na-90))*n2)
-        dot2_y = round(ry+math.sin(math.radians(ra+na))*n2+math.cos(math.radians(ra+na-90))*n2)
-        dot3_x = round(rx+math.cos(math.radians(ra+na+90))*n3+math.sin(math.radians(ra+na+90))*n3)
-        dot3_y = round(ry+math.sin(math.radians(ra+na+90))*n3+math.cos(math.radians(ra+na+90))*n3)
-        self.map_matrix[dot1_x][dot1_y] = 1
-        self.map_matrix[dot2_x][dot2_y] = 1
-        self.map_matrix[dot3_x][dot3_y] = 1
-        l1 = round(math.sqrt((rx-dot1_x)**2+(ry-dot1_y)**2))-1
-        l2 = round(math.sqrt((rx-dot2_x)**2+(ry-dot2_y)**2))-1
-        l3 = round(math.sqrt((rx-dot1_x)**2+(ry-dot3_y)**2))-1
-        for i in range (0,l1):
-            self.rysuj_kropke(i, ra+na-90, rx, ry)
-        for j in range (0,l2):
-            self.rysuj_kropke(j, ra+na, rx, ry)
-        for k in range (0,l2):
-            self.rysuj_kropke(k, ra+na+90, rx, ry)
+        if n1 > 0 and n1 < 50:
+            dot1_x = round(rx+math.cos(math.radians(ra+na-90))*n1+math.sin(math.radians(ra+na-90))*n1)
+            dot1_y = round(ry+math.sin(math.radians(ra+na-90))*n1+math.cos(math.radians(ra+na-90))*n1)
+            self.map_matrix[dot1_x][dot1_y] = 1
+            l1 = round(math.sqrt((rx-dot1_x)**2+(ry-dot1_y)**2))-1
+            for i in range (0,l1):
+                self.rysuj_kropke(i, ra+na-90, rx, ry)
 
+        if n2 > 0 and n2 < 50:
+            dot2_x = round(rx+math.cos(math.radians(ra+na))*n2+math.sin(math.radians(ra+na-90))*n2)
+            dot2_y = round(ry+math.sin(math.radians(ra+na))*n2+math.cos(math.radians(ra+na-90))*n2)
+            self.map_matrix[dot2_x][dot2_y] = 1
+            l2 = round(math.sqrt((rx-dot2_x)**2+(ry-dot2_y)**2))-1
+            for j in range (0,l2):
+                self.rysuj_kropke(j, ra+na, rx, ry)
 
-
+        if n3 > 0 and n3 < 50:
+            dot3_x = round(rx+math.cos(math.radians(ra+na+90))*n3+math.sin(math.radians(ra+na+90))*n3)
+            dot3_y = round(ry+math.sin(math.radians(ra+na+90))*n3+math.cos(math.radians(ra+na+90))*n3)
+            self.map_matrix[dot3_x][dot3_y] = 1
+            l3 = round(math.sqrt((rx-dot3_x)**2+(ry-dot3_y)**2))-1
+            for k in range (0,l3):
+                self.rysuj_kropke(k, ra+na+90, rx, ry)
 
 
 
