@@ -25,7 +25,7 @@ class robot_xy(object):
         self.y_pos += change
 
     def angle_change(self, change):
-        self.angle += angle
+        self.angle += change
 
 
 
